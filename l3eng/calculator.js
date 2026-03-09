@@ -74,41 +74,39 @@ let standards = [
 ];
 
 let standardTotal = 0;
-let standardTotalDisplay;
+let resultTable;
 
 function updateTotal() {
-    standardTotalDisplay.children[0].children[1].textContent = standardTotal;
+    resultTable.children[0].children[0].children[1].textContent = standardTotal;
 }
 
-function onLoad() {
-    let standardsField = document.getElementById("standards-field")
-    for (let i=0; i < standards.length; ++i) {
-        const currentStandard = standards[i];
-        let standardCheckbox = document.createElement("input");
-        let standardLabel = document.createElement("label");
+function addStandard(standard, parentElement) {
+    // const standard = standards[index];
+    let checkbox = document.createElement("input");
+    let label = document.createElement("label");
 
-        standardCheckbox.addEventListener("click", function() {
-            if (standardCheckbox.enabled) standardTotal += currentStandard.credits
-            else standardTotal -= currentStandard.credits;
-            updateTotal();
-        }, {passive: true});
+    checkbox.addEventListener("click", function() {
+        if (checkbox.checked) standardTotal += standard.credits;
+        else standardTotal -= standard.credits;
+        updateTotal();
+    }, {passive: true});
 
-        standardCheckbox.setAttribute("type", "checkbox");
-        standardCheckbox.setAttribute("id", currentStandard.id)
-        standardCheckbox.setAttribute("name", currentStandard.id)
-        standardLabel.setAttribute("for", currentStandard.id)
-        standardLabel.textContent = "3." + currentStandard.reference + ": " + currentStandard.nick + " (" + currentStandard.credits + " credits)";
-        standardLabel.title = currentStandard.title;
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("id", standard.id)
+    checkbox.setAttribute("name", standard.id)
+    label.setAttribute("for", standard.id)
+    label.textContent = "3." + standard.reference + ": " + standard.nick + " (" + standard.credits + " credits)";
+    label.title = standard.title;
 
-        standardsField.appendChild(standardCheckbox);
-        standardsField.appendChild(standardLabel);
-        standardsField.appendChild(document.createElement("br"));
-    }
-
-    standardTotalDisplay = document.getElementById("result-display");
-
-    // Cleaning up, I hope?
-    window.removeEventListener("load", onload, {passive: true})
+    parentElement.appendChild(checkbox);
+    parentElement.appendChild(label);
 }
 
-window.addEventListener("load", onLoad, {passive: true});
+let standardsField = document.getElementById("standards-field");
+for (let i=0; i < standards.length - 1; ++i) {
+    addStandard(standards[i], standardsField);
+    standardsField.appendChild(document.createElement("br"));
+}
+addStandard(standards[standards.length-1], standardsField);
+
+resultTable = document.getElementById("result-table");
