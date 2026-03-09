@@ -93,15 +93,16 @@ function onLoad() {
             updateTotal();
         }, {passive: true});
 
-        standardCheckbox.textContent = "3." + currentStandard.reference + ": " + currentStandard.nick + " (" + currentStandard.credits + " credits)";
-        standardCheckbox.title = currentStandard.title;
-
         standardCheckbox.setAttribute("type", "checkbox");
         standardCheckbox.setAttribute("id", currentStandard.id)
         standardCheckbox.setAttribute("name", currentStandard.id)
         standardLabel.setAttribute("for", currentStandard.id)
+        standardLabel.textContent = "3." + currentStandard.reference + ": " + currentStandard.nick + " (" + currentStandard.credits + " credits)";
+        standardLabel.title = currentStandard.title;
 
         standardsField.appendChild(standardCheckbox);
+        standardsField.appendChild(standardLabel);
+        standardsField.appendChild(document.createElement("br"));
     }
 
     standardTotalDisplay = document.getElementById("result-display");
