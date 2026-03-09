@@ -96,6 +96,7 @@ function onLoad() {
         standardCheckbox.textContent = "3." + currentStandard.reference + ": " + currentStandard.nick + " (" + currentStandard.credits + " credits)";
         standardCheckbox.title = currentStandard.title;
 
+        standardCheckbox.setAttribute("type", "checkbox");
         standardCheckbox.setAttribute("id", currentStandard.id)
         standardCheckbox.setAttribute("name", currentStandard.id)
         standardLabel.setAttribute("for", currentStandard.id)
