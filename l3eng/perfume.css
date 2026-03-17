@@ -1,0 +1,42 @@
+details.page-nav {
+    width: fit-content;
+    float: right;
+}
+
+.page-nav>summary {
+    text-align: right;
+    max-width: 100%;
+    margin-bottom: -0.25em;
+    padding: 0.5em;
+    background-color: beige;
+    border: 0.25em solid saddlebrown;
+    border-radius: 1em;
+}
+
+:open.page-nav>summary {
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+nav.page-nav {
+    width: fit-content;
+    padding: 1em;
+    border: 0.25em solid saddlebrown;
+    border-top: 0.125em dotted saddlebrown;
+    border-radius: 1em;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    background-color: beige;
+}
+
+nav>ul {
+    padding: 0;
+    padding-left: 1em;
+    margin: 0;
+}
+
+li.subsection-link {
+    margin-left: 1em;
+    list-style-type: square;
+}
