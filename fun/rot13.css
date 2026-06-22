@@ -1,0 +1,42 @@
+.textarea-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+p, h1 {
+    font-family: sans-serif;
+}
+button {
+    font-family: monospace;
+}
+textarea {
+    resize: vertical;
+    width: 80%;
+    min-height: 10%;
+    height: 20vh;
+}
+
+#output {
+    background: black;
+    border-radius: 1em;
+    color: white;
+    overflow: hidden;
+    font-family: monospace;
+    width: 80%;
+    white-space: pre-wrap;
+}
+.wrong {
+    background-color: red;
+}
+.empty {
+    opacity: 0.2;
+}
+
+#error-text-container {
+    background-color: #f88;
+    color: black;
+    padding: 1rem;
+    border-radius: 1rem;
+    display: none;
+}

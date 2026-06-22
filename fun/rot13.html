@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>EBG13 Cenpgvpr!</title>
+        <script defer async src="rot13.js"></script>
+        <link rel="stylesheet" href="rot13.css">
+        <!-- JS will use this to generate lines the user must type. -->
+        <link rel="prefetch" href="/data/nineteen-eighty_four.txt">
+    </head>
+    <body>
+        <div id="error-text-container">
+            <p id="error-text"></p>
+            <button id="close-error-text" onclick="hideError();">X</button>
+        </div>
+        <h1 onclick="selfROT13(this);">EBG13 Cenpgvpr</h1>
+        <p onclick="selfROT13(this);">When you click "Practice Writing", there
+            will be some text set below for you to practice translating.
+            "Cenpgvpr Ernqvat" is the exact same, except the sample text has
+            already been put through ROT13.</p>
+        <p id="practicetext"><!-- Written to by JS. --></p>
+        <button id="practice-writing" onclick="practice();" disabled>Practice Writing</button>
+        <button id="practice-reading" onclick="readPractice();" disabled>Cenpgvpr Ernqvat</button>
+        <hr>
+        <div class="textarea-container">
+            <textarea name="rot13-display" id="rot13-display" readonly></textarea>
+            <textarea name="rot13-input" id="rot13-input" onchange onpropertychange onkeyuponpaste oninput="inputChanged();"></textarea>
+            <pre id="output"></pre>
+        </div>
+        <footer>
+            <p>Inspired by <a href="https://monkeytype.com/">Monkeytype</a> and <a href="https://www.typingstudy.com/">Touch Typing Study</a>. Kind of.</p>
+        </footer>
+    </body>
+</html>

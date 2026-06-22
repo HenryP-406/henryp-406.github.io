@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="./kahurangi.css">
+    <script async src="./compound_info.js"></script>
+    <script defer async src="./kahurangi.js"></script>
+  </head>
+  <body>
+    <h1><a href="https://kahurangi-2025.tiiny.site/">Kahurangi</a> clone (I don't have a better name).</h1>
+    <section id="menu-home" class="menu" style="display: block;">
+      <select id="quiz-type" name="quiz-type">
+        <option value="mixed">All spectra</option>
+        <option value="ir">Infrared</option>
+        <option value="nmr">C-NMR</option>
+        <option value="mass">Mass spectrometry</option>
+      </select>
+      <button id="start-button" disabled onclick="start_quiz()">Loading...</button>
+    </section>
+    <section id="menu-quiz" class="menu">
+      <div style="width:100px;height:100px;background:red;"></div>
+    </section>
+    <section id="menu-results" class="menu">
+
+    </section>
+  </body>
+</html>
