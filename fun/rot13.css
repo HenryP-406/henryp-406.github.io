@@ -29,8 +29,11 @@ textarea {
 .wrong {
     background-color: red;
 }
-.empty {
+.hint {
     opacity: 0.2;
+}
+.phantom {
+    opacity: 0;
 }
 
 #error-text-container {

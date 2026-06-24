@@ -3,14 +3,20 @@ const lowerZ = "z".charCodeAt(0);
 const upperA = "A".charCodeAt(0);
 const upperZ = "Z".charCodeAt(0);
 
+const errorContainer = document.getElementById("error-text-container");
+const errorText = document.getElementById("error-text");
+const closeErrorButton = document.getElementById("close-error-text");
+
+const settingLineCount = document.getElementById("practice-lines");
+const settingLineCountLabel = document.getElementById("practice-lines-label");
+const settingShowHint = document.getElementById("show-hint");
+const settingShowHintLabel = document.getElementById("show-hint-label");
+
 const writingButton = document.getElementById("practice-writing");
 const readingButton = document.getElementById("practice-reading");
 const textDisplay = document.getElementById("rot13-display");
 const textInput = document.getElementById("rot13-input");
 const outputElement = document.getElementById("output");
-const errorContainer = document.getElementById("error-text-container");
-const errorText = document.getElementById("error-text");
-const closeErrorButton = document.getElementById("close-error-text");
 
 function rot13(text) {
   let output = "";
@@ -36,7 +42,6 @@ fetch("/data/nineteen-eighty_four.txt").then((data) => {
   data.text().then((text) => {
     sourceText = text;
     sourceLines = sourceText.split("\n");
-    console.log(text);
     ready();
   })
 }).catch((error) => {
@@ -45,33 +50,58 @@ fetch("/data/nineteen-eighty_four.txt").then((data) => {
   errorContainer.style.display = "block";
 })
 
-function ready() {
-  writingButton.disabled = false;
-  readingButton.disabled = false;
-  readPractice();
-}
-
-// Text is unchanged by default.
+// Customization/settings.
 let upperCase = true;
 let alphaOnly = false;
 let numbers = true;
-let practiceLines = 5;
+let showHint = false;
+let practiceLines = 3;
+
+function ready() {
+  writingButton.disabled = false;
+  readingButton.disabled = false;
+  settingLineCount.value = practiceLines;
+  settingLineCount.disabled = false;
+  settingShowHint.checked = showHint;
+  settingShowHint.disabled = false;
+  updateSettingLineCount();
+  readPractice();
+}
+
+function updateSettingLineCount() {
+  settingLineCountLabel.textContent = "Practice lines: " + practiceLines;
+}
+function settingChangedPracticeLines() {
+  practiceLines = Number(settingLineCount.value);
+  updateSettingLineCount();
+}
+function settingChangedShowHint() {
+  showHint = settingShowHint.checked;
+  displayOutput();
+}
 
 let practiceText = "";
 let practiceTextAnswer = "";
-function practice() {
-  practiceText = "";
+
+function getLine() {
+  line = "";
   var startIndex = Math.floor(Math.random()*(sourceLines.length - practiceLines));
-  while (sourceLines[startIndex] === "") {
+  // It shouldn't begin or end with a blank line.
+  while (sourceLines[startIndex] === "" || sourceLines[startIndex + practiceLines - 1] === "") {
     startIndex = Math.floor(Math.random()*(sourceLines.length - practiceLines));
   }
   for (var i = startIndex; i < startIndex + practiceLines; ++i) {
-    practiceText += "\n" + sourceLines[i];
+    line += "\n" + sourceLines[i];
   }
+  return line;
+}
+
+function practice() {
+  practiceText = getLine();
   practiceText = practiceText.slice(1);
   practiceTextAnswer = rot13(practiceText);
   textDisplay.textContent = practiceText;
-  textInput.textContent = "";
+  textInput.value = "";
   inputChanged();
 }
 
@@ -84,23 +114,23 @@ function readPractice () {
   inputChanged();
 }
 
-function inputChanged() {
-  if (textInput.value.length > practiceText.length) {
-    textInput.value = textInput.value.slice(0, practiceText.length);
-  }
+function displayOutput() {
   var outputHtml = "";
-  for (var i = 0; i < practiceTextAnswer.length; ++i) {
-    if (i >= textInput.value.length) {
-      outputHtml += '<span class="empty">' + practiceTextAnswer.charAt(i) + "</span>";
-      continue;
-    }
+  for (var i = 0; i < textInput.value.length; ++i) {
     if (practiceTextAnswer.charAt(i) !== textInput.value.charAt(i)) {
       outputHtml += '<span class="wrong">' + practiceTextAnswer.charAt(i) + "</span>";
     } else {
       outputHtml += practiceTextAnswer.charAt(i);
     }
   }
+  outputHtml += showHint ? '<span class="hint">' : '<span class="phantom">';
+  outputHtml += practiceTextAnswer.slice(textInput.value.length, practiceTextAnswer.length);
+  outputHtml += "</span>";
   outputElement.innerHTML = outputHtml;
+}
+
+function inputChanged() {
+  displayOutput();
 }
 
 // Causes an element to rot13 its text.

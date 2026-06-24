@@ -17,7 +17,11 @@
             will be some text set below for you to practice translating.
             "Cenpgvpr Ernqvat" is the exact same, except the sample text has
             already been put through ROT13.</p>
-        <p id="practicetext"><!-- Written to by JS. --></p>
+        <label id="practice-lines-label" for="practice-lines">Practice lines:</label>
+        <input disabled type="range" id="practice-lines" name="practice-lines" onchange="settingChangedPracticeLines();" min="1" max="10">
+        <label id="show-hint-label" for="show-hint">Enable text hint:</label>
+        <input disabled type="checkbox" id="show-hint" name="show-hint" onchange="settingChangedShowHint();">
+        <br>
         <button id="practice-writing" onclick="practice();" disabled>Practice Writing</button>
         <button id="practice-reading" onclick="readPractice();" disabled>Cenpgvpr Ernqvat</button>
         <hr>
@@ -27,7 +31,8 @@
             <pre id="output"></pre>
         </div>
         <footer>
-            <p>Inspired by <a href="https://monkeytype.com/">Monkeytype</a> and <a href="https://www.typingstudy.com/">Touch Typing Study</a>. Kind of.</p>
+            <p>Inspired by <a href="https://monkeytype.com/">Monkeytype</a> and <a href="https://www.typingstudy.com/">Touch Typing Study</a>. Kind of.<br>
+            See also the <a href="https://en.wikipedia.org/wiki/ROT13">ROT13 Article</a> on Wikipedia.</p>
         </footer>
     </body>
 </html>
